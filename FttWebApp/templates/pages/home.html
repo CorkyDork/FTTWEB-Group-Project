@@ -1,0 +1,33 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+
+
+
+<main class="mt-auto">
+  <div class="container">
+    <section class="home-banner section-bg scol-12 text-center p-4 p-lg-5 shadow-lg text-white">
+      <h1 class="mb-4">WELCOME TO FTT WEB</h1>
+  
+      <p class="mb-4">This website is for brokers only. If you would like to buy crypto or stock you can download our mobile app</p>
+
+      <div class="row justify-content-center">
+        <div class="col-12 col-sm-6 col-lg-5 mb-3 mb-sm-0">
+          <a href="https://play.google.com/store/games?pli=1" target="_blank">
+            <img src="{% static 'img/google-play-store.png' %}" class="download-app" alt="download on google play store">
+          </a>
+        </div>
+
+        <div class="col-12 col-sm-6 col-lg-5">
+          <a href="https://www.apple.com/app-store/" target="_blank">
+            <img src="{% static 'img/apple-store.png' %}" class="download-app" alt="download on apple store">
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+
+
+{% endblock %}

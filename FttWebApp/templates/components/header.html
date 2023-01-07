@@ -1,0 +1,50 @@
+<header id="main-header" class="sticky-top d-flex shadow-lg align-items-center">
+    <nav class="container navbar navbar-expand-lg color-white p-0">
+        <div class="inner-nav d-flex flex-nowrap justify-content-between flex-grow-1 flex-lg-grow-0">
+            <a class="navbar-brand p-0 d-block flex-shrink-1" href="{% url 'viewIsHome' %}">
+                <div class="logo">FTT Web</div>                                                   
+            </a>
+            <div class="auth flex-wrap flex-column">
+                {% if authData.isAuth %}
+                    <span class="flex-grow-1"><i class="fa-regular fa-user pe-2"></i>{{ brokerDetails.firstName }} {{ brokerDetails.lastName }}</span>
+                    <a class="tinyfont flex-grow-1" href="{% url 'ApiIsLogout' %}">Sign Out</a>
+                {% else %}
+                    <a href="#" class="sign-in" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="fa-solid fa-right-to-bracket pe-2"></i> 
+                        Sign In
+                    </a>
+                {% endif %}
+            </div>
+
+            <button class="navbar-toggler hamburger hamburger--elastic pe-sm-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavTop" aria-controls="mainNavTop" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="hamburger-box">
+                <span class="hamburger-inner"></span>
+                </span>
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse d-lg-flex justify-content-lg-between flex-grow-1 mt-4 mt-lg-0 pb-3 pb-lg-0" id="mainNavTop">
+            <div class="navbar-nav w-100">
+                {% if authData.isAuth %}
+                    <a class="nav-link" href="{% url 'viewIsMyDetails' %}">My Details</a>
+                    <a class="nav-link" href="{% url 'viewIsMyClients' %}">My Clients</a>
+                    <a class="nav-link" href="{% url 'viewIsPredictions' %}">Predictions</a>
+                    <a class="nav-link" href="{% url 'viewIsReports' %}">Reports</a>
+                    <a class="nav-link" href="{% url 'viewIsContactUs' %}">Contact</a>
+
+                    <div class="mobile-auth mt-5 px-3 px-sm-0">
+                        <span><i class="fa-regular fa-user pe-2"></i>{{ brokerDetails.firstName }} {{ brokerDetails.lastName }}</span>
+                        <a class="" href="{% url 'ApiIsLogout' %}">Sign Out</a>
+                    </div>
+                {% else %}
+                    <a class="nav-link active" aria-current="page" href="{% url 'viewIsHome' %}">Home</a>
+                    <a class="nav-link" href="{% url 'viewIsContactUs' %}">Contact</a>
+
+                    <a class="nav-link sign-in-mobile" href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="fa-solid fa-right-to-bracket pe-2"></i> Sign In
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+</header>

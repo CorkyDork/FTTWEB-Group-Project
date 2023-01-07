@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-63r87soo)pj9vic(!12w^w+3^yphm*6$ad1krbj+qsb457c@8d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '188.34.184.107', 'fttweb.xyz']
 
 
 # Application definition
@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'FttWebApp',
-    'UserAuthorization'
+    'UserAuthorization',
+    'FttWebApi',
 ]
 
 MIDDLEWARE = [
@@ -119,6 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+#STATIC_URL = '/var/www/fttweb/FttWebApp/static/'
 
 
 # Default primary key field type

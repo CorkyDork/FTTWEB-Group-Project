@@ -1,76 +1,151 @@
-import json
 from django.shortcuts import render
-import requests
+from django.shortcuts import redirect
+
 from fttweb import dbconfigs
+from UserAuthorization.controller import userAuth
+from FttWebApp.controller import contextGenerator
 
 
 
-def pageHome(request):
+# Render functions
+def viewIsHome(request):
+	statusData = userAuth.getUserAuthDataFromDbByTokenFromSession(request)
 
-	userAuthData = getUserAuthDataFromDbBySession(request)
+	# Prepair data context
+	toasts = statusData.get('toasts')
+	authData = statusData.get('authData')
+	context = {
+		'toasts': toasts if toasts and len(toasts) > 0 else False,
+		'authData': authData if authData and len(authData) > 0 else False
+	}
 
-	if not isinstance(userAuthData, bool): #some session exists
+	if context["authData"]: # User is authenditicated
+		brokerDetails = contextGenerator.generateContextOfBrokerExtraDetailsFromDb(statusData["authData"]['localId']) # Get broker extra details
+		context.update({'brokerDetails': brokerDetails}) # Append extra data to context
 
-		if "users" in userAuthData: #we got json string - user is authorized
-			email = json.loads(userAuthData)['users'][0]['email']
-			return render(request,"home.html", {"email":email}) #push all required data to page
+		return redirect("/myclients")
 
-		elif isinstance(userAuthData, str): #we got string - session expiered
-			return render(request,"home.html", {"email":"SESSION EXPIERED"})
+	else: # User not unthenditicated
+		finInstitutionsData = contextGenerator.generateContextOfFinancialInstitutionDataFromDb()
+		context.update({'finInstitutionsData': finInstitutionsData}) # Append extra data to context
 
-	else: #we got boolean - user not authorized
-		return render(request,"home.html")
+		return render(request,"pages/home.html", context)
+
+
+
+def viewIsMyDetails(request):
+	statusData = userAuth.getUserAuthDataFromDbByTokenFromSession(request)
+	
+	# Prepair data context
+	toasts = statusData.get('toasts')
+	authData = statusData.get('authData')
+	context = {
+		'toasts': toasts if toasts and len(toasts) > 0 else False,
+		'authData': authData if authData and len(authData) > 0 else False
+	}
+
+	if context["authData"]: # User is authenditicated
+		brokerDetails = contextGenerator.generateContextOfBrokerExtraDetailsFromDb(statusData["authData"]['localId']) # Get broker extra details
+		context.update({'brokerDetails': brokerDetails}) # Append extra data to context
+
+		return render(request,"pages/mydetails.html", context)
+
+	else: # User not unthenditicated
+		return redirect("/")
+
+
+
+def viewIsMyClients(request):
+	statusData = userAuth.getUserAuthDataFromDbByTokenFromSession(request)
+	
+	# Prepair data context
+	toasts = statusData.get('toasts')
+	authData = statusData.get('authData')
+	context = {
+		'toasts': toasts if toasts and len(toasts) > 0 else False,
+		'authData': authData if authData and len(authData) > 0 else False
+	}
+
+	print(" xxxxxxxxxxxxxxxxxxxxxxx")
+	print(context)
+
+	if context["authData"]: # User is authenditicated
+		brokerDetails = contextGenerator.generateContextOfBrokerExtraDetailsFromDb(statusData["authData"]['localId']) # Get broker extra details
+		context.update({'brokerDetails': brokerDetails}) # Append extra data to context
+
+		brokerClientsDetails = contextGenerator.generateContextOfBrokersClientsDataFromDb(statusData["authData"]['localId']) # Get broker client details
+		context.update({'brokerClientsDetails': brokerClientsDetails}) # Append extra data to context
+		
+		return render(request,"pages/myclients.html", context)
+
+	else: # User not unthenditicated
+		return redirect("/")
+
 
  
-def pageContactUs(request):
-	return render(request,"contact.html")
+def viewIsContactUs(request):
+	statusData = userAuth.getUserAuthDataFromDbByTokenFromSession(request)
+
+	# Prepair data context
+	toasts = statusData.get('toasts')
+	authData = statusData.get('authData')
+	context = {
+		'toasts': toasts if toasts and len(toasts) > 0 else False,
+		'authData': authData if authData and len(authData) > 0 else False
+	}
+
+	if context["authData"]: # User is authenditicated
+		brokerDetails = contextGenerator.generateContextOfBrokerExtraDetailsFromDb(statusData["authData"]['localId']) # Get broker extra details
+		context.update({'brokerDetails': brokerDetails}) # Append extra data to context
+
+		return render(request,"pages/contact.html", context)
+
+	else: # User not unthenditicated
+		finInstitutionsData = contextGenerator.generateContextOfFinancialInstitutionDataFromDb()
+		context.update({'finInstitutionsData': finInstitutionsData}) # Append extra data to context
+
+		return render(request,"pages/contact.html", context)
 
 
-def pageAboutUs(request):
-	return render(request,"about.html")
+
+def viewIsPredictions(request):
+	statusData = userAuth.getUserAuthDataFromDbByTokenFromSession(request)
+
+	# Prepair data context
+	toasts = statusData.get('toasts')
+	authData = statusData.get('authData')
+	context = {
+		'toasts': toasts if toasts and len(toasts) > 0 else False,
+		'authData': authData if authData and len(authData) > 0 else False
+	}
+
+	if context["authData"]: # User is authenditicated
+		brokerDetails = contextGenerator.generateContextOfBrokerExtraDetailsFromDb(statusData["authData"]['localId']) # Get broker extra details
+		context.update({'brokerDetails': brokerDetails}) # Append extra data to context
+
+		return render(request,"pages/predictions.html", context)
+
+	else: # User not unthenditicated
+		return redirect("/")
 
 
-def pageBrokerDetails(request):
-	return render(request,"brokerdetails.html")
 
+def viewIsReports(request):
+	statusData = userAuth.getUserAuthDataFromDbByTokenFromSession(request)
 
-def pageftpPredict(request):
-	return render(request,"ftppredict.html")
+	# Prepair data context
+	toasts = statusData.get('toasts')
+	authData = statusData.get('authData')
+	context = {
+		'toasts': toasts if toasts and len(toasts) > 0 else False,
+		'authData': authData if authData and len(authData) > 0 else False
+	}
 
+	if context["authData"]: # User is authenditicated
+		brokerDetails = contextGenerator.generateContextOfBrokerExtraDetailsFromDb(statusData["authData"]['localId']) # Get broker extra details
+		context.update({'brokerDetails': brokerDetails}) # Append extra data to context
 
-def pageReport(request):
-	return render(request,"report.html")
+		return render(request,"pages/reports.html", context)
 
-
-def pageViewClients(request):
-	return render(request,"viewclients.html")
-
-
-def getUserAuthDataFromDbBySession(request):
-	if 'uid' in request.session: #we have session
-
-		idToken = request.session['uid']
-
-		try:
-			userData = dbconfigs.authe.get_account_info(idToken)
-
-			# TODO remove when done developing
-			print("User data is: ")
-			print(userData)
-
-		except requests.HTTPError as e: #session expiered - we return error message
-			error_json = e.args[1]
-			error = json.loads(error_json)['error']['message']
-
-			if error == "INVALID_ID_TOKEN":
-				msg = "Session expiered, please signin again"
-			else:
-				msg ="Some error occured, please try again"
-
-			return msg
-
-		#all good - we return user firebase auth data in json
-		return json.dumps(userData)
-
-	else: #no session exists
-		return False
+	else: # User not unthenditicated
+		return redirect("/")

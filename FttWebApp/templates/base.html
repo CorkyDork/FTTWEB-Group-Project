@@ -1,0 +1,19 @@
+<html>
+  <head>
+    {% include 'components/head.html' %}
+  </head>
+  <body class="d-flex flex-column min-vh-100">
+    {% include 'components/header.html' %}
+
+    {% block content %}
+    {% endblock %}
+
+    {% include 'components/footer.html' %}
+
+    {% include 'components/popup-auth.html' %}
+
+    {% include 'components/toasts.html' %}
+
+    {% include 'components/footer-scripts.html' %}
+  </body>
+</html>

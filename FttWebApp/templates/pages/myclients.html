@@ -1,0 +1,46 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+
+
+<main class="main-wrapper flex-grow-1">
+  <div class="container">
+    <section class="section-bg col-12 p-4 p-lg-5 shadow-lg text-white">
+      <h1 class="mb-4">My Clients</h1>
+
+      {% if brokerClientsDetails %}
+        <div class="table-responsive-md">
+          <table class="table table-dark table-striped table-hover">
+            <thead>
+              <tr>
+                <th scope="col">First Name:</th>
+                <th scope="col">Last Name:</th>
+                <th scope="col">Email:</th>
+                <th scope="col">Actions:</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for clientId, clientDetails in brokerClientsDetails.items %}
+                <tr>
+                  <td class="text-nowrap">{{ clientDetails.firstName }}</td>
+                  <td class="text-nowrap">{{ clientDetails.lastName }}</td>
+                  <td class="text-nowrap">{{ clientDetails.email }}</td>
+                  <td class="text-nowrap">
+                    <button class="view-transaction btn btn-outline-secondary btn-sm" clientid="{{ clientId }}">View Transactions</button>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <h2> You currently have no clients</h2>
+        {% endif %}
+    </div>
+    </section>
+  </div>
+</main>
+
+
+
+{% endblock %}

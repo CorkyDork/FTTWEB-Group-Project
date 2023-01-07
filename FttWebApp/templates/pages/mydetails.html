@@ -1,0 +1,65 @@
+{% extends "../base.html" %}
+{% load static %}
+{% block content %}
+
+
+<main class="main-wrapper flex-grow-1">
+  <div class="container">
+    <section class="section-bg col-12 p-4 p-lg-5 shadow-lg text-white">
+      <h1 class="mb-4">{{ brokerDetails.firstName }} {{ brokerDetails.lastName }}</h1>
+
+      <div class="row justify-content-between">
+        <div class="col-sm-4 mb-4 mb-sm-0">
+          {% if authData.photoUrl is not False %}
+            <img class="profile-photo img-fluid rounded" src="{{ authData.photoUrl }}" alt="profile photo of broker">
+          {% else %}
+            <img class="profile-photo img-fluid rounded" src="{% static 'img/profile-placeholder.webp' %}" alt="profile photo of broker">
+          {% endif %}
+        </div>
+
+        <div class="col-sm-8">
+          <form class="cs-form" onsubmit="return false" novalidate>
+            <div class="row">
+              <h2 class="col-12 h3">Personal Details:</h2>
+
+              <div class="col-md-6 form-group mb-2">
+                <label for="broker-name">First Name:</label>
+                <input type="text" class="form-control" value="{{ brokerDetails.firstName }}" id="broker-name" disabled>
+              </div>
+
+              <div class="col-md-6 form-group mb-2">
+                <label for="broker-surname">Last Name:</label>
+                <input type="text" class="form-control" value="{{ brokerDetails.lastName }}" id="broker-surname" disabled>
+              </div>
+
+              <div class="col-md-6 form-group mb-2">
+                <label for="broker-email">Email:</label>
+                <input type="email" class="form-control" value="{{ authData.email }}" id="broker-email" disabled>
+              </div>
+
+              <div class="col-md-6form-group">
+              </div>
+
+              <h2 class="col-12 h3 mt-4">Financial Institution:</h2>
+
+              <div class="col-md-6 form-group mb-2">
+                <label for="broker-financial-institution">Institution Name:</label>
+                <input type="text" class="form-control" value="{{ brokerDetails.financialInstitution }}" id="broker-financial-institution" disabled>
+              </div>
+
+              <div class="col-md-6 form-group">
+                <label for="broker-financial-institution-percentage">Institution Percentage:</label>
+                <input type="text" class="form-control" value="{{ brokerDetails.financialInstitutionPercentage }}"  id="broker-financial-institution-percentage" disabled>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+  
+    </section>
+  </div>
+</main>
+
+
+
+{% endblock %}

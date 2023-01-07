@@ -1,12 +1,11 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from UserAuthorization import views
 
 urlpatterns = [
-    path('', views.pageSignIn, name = "pageSignIn"),
-    path('post-signin/', views.postSignIn, name = "pagePostSignIn"),
-    path('post-signup/', views.postSignUp, name = "pagePostSignUp"),
-    path('post-password-reset/', views.postPasswordReset, name = "pagePostPasswordReset"),
-    path('logout/', views.pageLogout, name="pageLogout"),
-    path('post-firebase-social-signin/', views.postFirebaseSocialSignin, name="pagePostFirebaseSocialSignin"),
+    path('api/post-signin/', views.ApiIsSignIn, name = "ApiIsSignIn"),
+    path('api/post-signup/', views.ApiIsSignUp, name = "ApiIsSignUp"),
+    path('api/post-password-reset/', views.ApiIsPasswordReset, name = "ApiIsPasswordReset"),
+    path('api/logout/', views.ApiIsLogout, name="ApiIsLogout"),
+    path('api/post-firebase-social-signin/', views.ApiIsFirebaseSocialSignin, name="ApiIsFirebaseSocialSignin"),
 ]
